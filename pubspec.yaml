@@ -1,0 +1,6 @@
+name: side_effects
+version: 0.0.1
+author: Matthew Butler
+description: Simple command line application which shows how functions in Dart may or may not have side effects.
+environment:
+  sdk: '>=1.5.0 <1.7.0'
