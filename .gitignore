@@ -1,0 +1,7 @@
+*~
+.project
+.buildlog
+packages
+deploy
+build
+*.sublime-*
