@@ -10,8 +10,10 @@ class SideEffect {
   String s = "Pretty String";
   List l = [1, 2, 3];
   Map m = { 'one' : 1, 'two' : 2, 'three' : 3 };
+  final List fl = [1, 2, 3];
+  final Map fm = { 'one' : 1, 'two' : 2, 'three' : 3 };
   
-  String toString() => 'Values: $i, $d, $n, $b, $s, $l, $m';
+  String toString() => 'Values: $i, $d, $n, $b, $s, $l, $m, $fl, $fm';
   
 }
 
@@ -23,8 +25,10 @@ class PartialEffect {
   String s = "Pretty String";
   List l = [1, 2, 3];
   Map m = { 'one' : 1, 'two' : 2, 'three' : 3 };
+  final List fl = [1, 2, 3];
+  final Map fm = { 'one' : 1, 'two' : 2, 'three' : 3 };
   
-  String toString() => 'Values: $i, $d, $n, $b, $s, $l, $m';
+  String toString() => 'Values: $i, $d, $n, $b, $s, $l, $m, $fl, $fm';
 }
 
 void main() {
@@ -35,32 +39,52 @@ void main() {
   String s = "Pretty String";
   List l = [1, 2, 3];
   Map m = { 'one' : 1, 'two' : 2, 'three' : 3 };
+  final List fl = [1, 2, 3];
+  final Map fm = { 'one' : 1, 'two' : 2, 'three' : 3 };
   SideEffect se = new SideEffect();
   PartialEffect pe = new PartialEffect();
   
-  
+  // int
   testFunction(i, addOne); // No Side Effects
   
+  // double
   testFunction(d, addOne); // No Side effects
   
+  // num
   testFunction(n, addOne); // No Side Effects
   
+  // bool
   testFunction(b, addOne); // No Side effects
   
+  // String
   testFunction(s, addOne); // No Side effects
   testFunction(s, modifyOne); // No Side effects
   
+  // List
   testFunction(l, addOne); // Side effect!
   testFunction(l, modifyOne); // Side effect!
   testFunction(l[1], addOne); // No side effect
   
+  // Map
   testFunction(m, addOne); // Side effect!
   testFunction(m, modifyOne); // Side effect!
   testFunction(m['one'], addOne); // No Side effect
   
+  // final List
+  testFunction(fl, addOne); // Side effect!
+  testFunction(fl, modifyOne); // Side effect!
+  testFunction(fl[1], addOne); // No side effect
+  
+  // final Map
+  testFunction(fm, addOne); // Side effect!
+  testFunction(fm, modifyOne); // Side effect!
+  testFunction(fm['one'], addOne); // No Side effect
+  
+  // Class (directly modify properties)
   testFunction(se, addOne); // Side effect! (technically a modification)
   testFunction(se, modifyOne); // Side effect!
   
+  // Class (passing properties rather than modifying)
   testFunction(pe, addOne); // Some side effects!
   testFunction(pe, modifyOne); // Some side effects!
 }
